@@ -25,6 +25,7 @@ deskripsi_penyakit = {
     "Basal Cell Carcinoma": "Basal Cell Carcinoma atau KSB adalah tumor ganas yang bersifat invasif secara lokal, agresif, dan destruktif. Etiopatogenesis KSB adalah predisposisi genetik, lingkungan, dan paparan sinar matahari, khususnya ultraviolet B (UVB) yang merangsang terjadinya mutasi suppressor genes. malignansi ini biasanya timbul di daerah yang terpapar sinar matahari."
 }
 
+
 # ======== Fungsi Deteksi Kulit ========
 def contains_skin(image_pil):
     image = np.array(image_pil.convert("RGB"))
