@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 import numpy as np
+import cv2
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
 
@@ -24,11 +25,29 @@ deskripsi_penyakit = {
     "Basal Cell Carcinoma": "Basal Cell Carcinoma atau KSB adalah tumor ganas yang bersifat invasif secara lokal, agresif, dan destruktif. Etiopatogenesis KSB adalah predisposisi genetik, lingkungan, dan paparan sinar matahari, khususnya ultraviolet B (UVB) yang merangsang terjadinya mutasi suppressor genes. malignansi ini biasanya timbul di daerah yang terpapar sinar matahari."
 }
 
+# ======== Fungsi Deteksi Kulit ========
+def contains_skin(image_pil):
+    image = np.array(image_pil.convert("RGB"))
+    image = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+
+    # Rentang warna kulit (bisa disesuaikan)
+    lower = np.array([0, 30, 60], dtype=np.uint8)
+    upper = np.array([20, 150, 255], dtype=np.uint8)
+
+    mask = cv2.inRange(image, lower, upper)
+    skin_ratio = np.sum(mask > 0) / mask.size
+
+    return skin_ratio > 0.02  # minimal 2% area ada kulit
+
 # ======== Fungsi Prediksi ========
 def predict_image(image):
-    image = image.resize((224, 224))
+    if not contains_skin(image):
+        return "Tidak terdefinisi", 0.0
+
+    image = image.convert("RGB").resize((224, 224))
     image = img_to_array(image) / 255.0
     image = np.expand_dims(image, axis=0)
+
     pred = model.predict(image)[0]
     idx = np.argmax(pred)
     return labels[idx], round(pred[idx] * 100, 2)
@@ -37,53 +56,21 @@ def predict_image(image):
 def local_css():
     st.markdown("""
     <style>
-        .title {
-            font-size: 40px;
-            font-weight: bold;
-            color: #2DC8C8;
-            text-align: center;
-        }
-        .subtitle {
-            font-size: 24px;
-            font-weight: 600;
-            margin-top: 10px;
-        }
-        .desc-box {
-            background-color: white;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 16px;
-            text-align: justify;
-        }
-        .blue-box {
-            background-color: #d9f9f9;
-            padding: 10px 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            text-align: center;
-        }
-        .centered {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .divider {
-            width: 1px;
-            background-color: #CCCCCC;
-            min-height: 650px;  /* <-- biar kelihatan */
-            margin: auto;
-        }
+        .title { font-size: 40px; font-weight: bold; color: #2DC8C8; text-align: center; }
+        .subtitle { font-size: 24px; font-weight: 600; margin-top: 10px; }
+        .desc-box { background-color: white; padding: 15px; border-radius: 10px; font-size: 16px; text-align: justify; }
+        .blue-box { background-color: #d9f9f9; padding: 10px 20px; border-radius: 10px; margin-top: 20px; text-align: center; }
+        .centered { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .divider { width: 1px; background-color: #CCCCCC; min-height: 650px; margin: auto; }
     </style>
     """, unsafe_allow_html=True)
 
 local_css()
 
-# ======== Layout Utama dengan Pembatas Kolom ========
+# ======== Layout Utama ========
 col1, spacer1, col2, spacer2, col3 = st.columns([1.1, 0.05, 1.5, 0.05, 1.5])
 
-# ======== Kolom 1: Branding & Maskot (Rata Tengah) ========
+# Kolom 1
 with col1:
     st.markdown('<div class="centered">', unsafe_allow_html=True)
     st.markdown('<div class="title">DERMATIFY</div>', unsafe_allow_html=True)
@@ -91,11 +78,11 @@ with col1:
     st.markdown('<div class="blue-box">Empowering you to identify<br>and understand your skin</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ======== Pembatas Vertikal ========
+# Divider
 with spacer1:
     st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
-# ======== Kolom 2: Upload Gambar (Tampilkan gambar saja) ========
+# Kolom 2
 with col2:
     st.markdown('<div class="subtitle">DERMATIFY LAB</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Upload Gambar Kulit", type=["jpg", "png", "jpeg"])
@@ -107,11 +94,11 @@ with col2:
     else:
         hasil, akurasi = None, None
 
-# ======== Pembatas Vertikal ========
+# Divider
 with spacer2:
     st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
-# ======== Kolom 3: Deskripsi & Tentang ========
+# Kolom 3
 with col3:
     st.markdown('<div class="subtitle">DESKRIPSI PENYAKIT KULIT</div>', unsafe_allow_html=True)
 
