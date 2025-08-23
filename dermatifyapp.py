@@ -16,13 +16,14 @@ def load_cnn_model():
 model = load_cnn_model()
 
 # ======== Label dan Deskripsi Penyakit ========
-labels = ['Melanoma', 'Eczema', 'Benign Keratosis', 'Melanocytic Nevi', 'Basal Cell Carcinoma']
+labels = ['Basal Cell Carcinoma', 'Benign Keratosis', 'Eczema','Melanocytic Nevi', 'Melanoma']
 deskripsi_penyakit = {
-    "Melanoma": "Melanoma adalah tumor ganas dari sel melanosit dan terutama terjadi di kulit. Melanoma juga dapat timbul di mata (uvea, konjungtiva dan tubuh ciliary), meninges, dan mukosa permukaan tubuh yang mengandung melanin. Melanoma menyumbang 90 persen dari kematian terkait tumor kulit.",
-    "Eczema": "Eczema atau Eksim merupakan kondisi kulit dimana disebabkan oleh peradangan kulit. Eksim yang merupakan sejenis alergi ini meningkat selama lebih dari 2 dekade pada negara berindustri, seperti Indonesia . Eksim di sini merupakan inflamasi kronis yang ditandai dengan ruam merah gatal yang menyokong lipatan kulit seperti lipatan siku atau di belakang lutut.",
+    "Basal Cell Carcinoma": "Basal Cell Carcinoma atau KSB adalah tumor ganas yang bersifat invasif secara lokal, agresif, dan destruktif. Etiopatogenesis KSB adalah predisposisi genetik, lingkungan, dan paparan sinar matahari, khususnya ultraviolet B (UVB) yang merangsang terjadinya mutasi suppressor genes. malignansi ini biasanya timbul di daerah yang terpapar sinar matahari.",
     "Benign Keratosis": "Benign Keratosis atau Keratosis seboroik (SK) juga dikenal sebagai kutil seboroik dan papiloma sel basal. Ini adalah pertumbuhan jinak yang disebabkan oleh penumpukan sel kulit. SK sangat umum, tidak berbahaya, seringkali berwarna coklat atau hitam, dan muncul di kulit",
+    "Eczema": "Eczema atau Eksim merupakan kondisi kulit dimana disebabkan oleh peradangan kulit. Eksim yang merupakan sejenis alergi ini meningkat selama lebih dari 2 dekade pada negara berindustri, seperti Indonesia . Eksim di sini merupakan inflamasi kronis yang ditandai dengan ruam merah gatal yang menyokong lipatan kulit seperti lipatan siku atau di belakang lutut.",
     "Melanocytic Nevi": "Melanocytic Nevi atau Nevus melanositik (MN), yang biasanya disebut sebagai tahi lalat, adalah neoplasma jinak yang berasal dari sel nevus asal puncak saraf. Selain menetapkan asal embrionik mereka dari puncak saraf, histogenesis tumor-tumor ini tetap menjadi subjek spekulasi dan sudut pandang yang beragam.",
-    "Basal Cell Carcinoma": "Basal Cell Carcinoma atau KSB adalah tumor ganas yang bersifat invasif secara lokal, agresif, dan destruktif. Etiopatogenesis KSB adalah predisposisi genetik, lingkungan, dan paparan sinar matahari, khususnya ultraviolet B (UVB) yang merangsang terjadinya mutasi suppressor genes. malignansi ini biasanya timbul di daerah yang terpapar sinar matahari."
+    "Melanoma": "Melanoma adalah tumor ganas dari sel melanosit dan terutama terjadi di kulit. Melanoma juga dapat timbul di mata (uvea, konjungtiva dan tubuh ciliary), meninges, dan mukosa permukaan tubuh yang mengandung melanin. Melanoma menyumbang 90 persen dari kematian terkait tumor kulit."
+    
 }
 
 
