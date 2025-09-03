@@ -4,24 +4,16 @@ import numpy as np
 import cv2
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
-import os
-import gdown
-from tensorflow import keras
 
 # ======== Konfigurasi halaman Streamlit ========
 st.set_page_config(layout="wide")
 
 # ======== Load model CNN ========
-MODEL_PATH = "best_model_skenario3_valacc.keras"
-FILE_ID = "1dZ9GV5JzHUV32psM3sZe4LCb_rVBVuKE"
+@st.cache_resource
+def load_cnn_model():
+    return load_model("best_model_skenario 3_valacc.h5")
 
-URL = f"https://drive.google.com/uc?id={FILE_ID}"
-
-if not os.path.exists(MODEL_PATH):
-    gdown.download(URL, MODEL_PATH, quiet=False)
-
-# Load model format baru
-model = keras.models.load_model(MODEL_PATH)
+model = load_cnn_model()
 
 # ======== Label dan Deskripsi Penyakit ========
 labels = ['cellulitis', 'chickenpox', 'impetigo','nail fungus', 'ringworm']
@@ -33,7 +25,6 @@ deskripsi_penyakit = {
     "ringworm": "Ringworm adalah penyakit yang disebabkan oleh infeksi jamur golongan dermatofita (berbagai spesies Trichophyton, Microsporum dan Epidermophyton) pada badan, tungkai dan lengan dan mempunyai gambaran morfologi yang khas. Pasien merasa gatal dan kelainan umumnya berbentuk bulat, berbatas tegas, terdiri atas macam-macam efloresensi kulit (polimorf) dengan bagian tepi lesi lebih jelas tanda peradangannya daripada bagian tengah. Beberapa lesi dapat bergabung dan mem-bentuk gambaran polisiklis. Lesi dapat meluas dan memberi gambaran yang tidak khas terutama pada pasien imunodefisiensi."
     
 }
-
 
 # ======== Fungsi Deteksi Kulit ========
 def contains_skin(image_pil):
@@ -126,3 +117,5 @@ with col3:
             prediksi cepat dan akurat untuk lima jenis kondisi masalah kulit.
         </div>
     """, unsafe_allow_html=True)
+
+
