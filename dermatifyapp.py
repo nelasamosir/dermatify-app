@@ -11,18 +11,19 @@ st.set_page_config(layout="wide")
 # ======== Load model CNN ========
 @st.cache_resource
 def load_cnn_model():
-    return load_model("Model_Skenario 3_Adam_R80.h5")
+    return load_model("best_model_skenario3_valacc.h5")
 
 model = load_cnn_model()
 
 # ======== Label dan Deskripsi Penyakit ========
-labels = ['Melanoma', 'Eczema', 'Benign Keratosis', 'Melanocytic Nevi', 'Basal Cell Carcinoma']
+labels = ['cellulitis', 'chickenpox', 'impetigo','nail fungus', 'ringworm']
 deskripsi_penyakit = {
-    "Melanoma": "Melanoma adalah tumor ganas dari sel melanosit dan terutama terjadi di kulit. Melanoma juga dapat timbul di mata (uvea, konjungtiva dan tubuh ciliary), meninges, dan mukosa permukaan tubuh yang mengandung melanin. Melanoma menyumbang 90 persen dari kematian terkait tumor kulit.",
-    "Eczema": "Eczema atau Eksim merupakan kondisi kulit dimana disebabkan oleh peradangan kulit. Eksim yang merupakan sejenis alergi ini meningkat selama lebih dari 2 dekade pada negara berindustri, seperti Indonesia . Eksim di sini merupakan inflamasi kronis yang ditandai dengan ruam merah gatal yang menyokong lipatan kulit seperti lipatan siku atau di belakang lutut.",
-    "Benign Keratosis": "Benign Keratosis atau Keratosis seboroik (SK) juga dikenal sebagai kutil seboroik dan papiloma sel basal. Ini adalah pertumbuhan jinak yang disebabkan oleh penumpukan sel kulit. SK sangat umum, tidak berbahaya, seringkali berwarna coklat atau hitam, dan muncul di kulit",
-    "Melanocytic Nevi": "Melanocytic Nevi atau Nevus melanositik (MN), yang biasanya disebut sebagai tahi lalat, adalah neoplasma jinak yang berasal dari sel nevus asal puncak saraf. Selain menetapkan asal embrionik mereka dari puncak saraf, histogenesis tumor-tumor ini tetap menjadi subjek spekulasi dan sudut pandang yang beragam.",
-    "Basal Cell Carcinoma": "Basal Cell Carcinoma atau KSB adalah tumor ganas yang bersifat invasif secara lokal, agresif, dan destruktif. Etiopatogenesis KSB adalah predisposisi genetik, lingkungan, dan paparan sinar matahari, khususnya ultraviolet B (UVB) yang merangsang terjadinya mutasi suppressor genes. malignansi ini biasanya timbul di daerah yang terpapar sinar matahari."
+    "cellulitis": "Cellulitis adalah infeksi bakteri pada lapisan dalam kulit dan jaringan lunak di bawahnya, biasanya disebabkan oleh bakteri Streptococcus atau Staphylococcus. Gejalanya meliputi kemerahan, bengkak, nyeri, dan rasa hangat pada area yang terinfeksi, sering disertai demam. Penyakit ini paling sering terjadi akibat luka terbuka yang memungkinkan bakteri masuk. Penanganannya umumnya menggunakan antibiotik oral, dan kasus berat bisa memerlukan rawat inap.",
+    "chickenpox": "Chickenpox adalah penyakit menular yang disebabkan oleh virus Varicella-Zoster, ditandai dengan ruam gatal berbentuk bintik merah yang berkembang menjadi lenting berisi cairan. Penyakit ini menyebar sangat mudah melalui udara atau kontak langsung, dan sering disertai demam serta rasa lelah. Umumnya dialami anak-anak dan akan sembuh sendiri dalam 1–2 minggu, namun pada orang dewasa atau kasus berat bisa diberikan antivirus.",
+    "impetigo": "Impetigo adalah infeksi bakteri superfisial yang menular pada kulit yang umumnya terkait dengan Staphylococcus aureus, Streptococcus pyogenes grup A betahaemolytic, atau keduanya. Meskipun impetigo dapat sembuh dengan sendirinya tanpa intervensi, beberapa kasus dapat bertahan selama beberapa minggu. Pengobatan pada impetigo sering dimulai untuk mengurangi durasi dan penyebaran infeksi. Selain itu, impetigo dapat memiliki konsekuensi yang serius, karena dikaitkan dengan glomerulonefritis pasca infeksi dan selulitis, terutama pada populasi spesifik tertentu.",
+    "nail fungus": "Nail fungus atau onikomikosis adalah infeksi jamur pada kuku tangan atau kaki yang menyebabkan kuku berubah warna, menebal, rapuh, dan terkadang berbau. Infeksi ini sering muncul akibat kelembapan berlebih, kebersihan yang buruk, atau pemakaian alas kaki tertutup terlalu lama. Penanganannya memerlukan obat antijamur topikal atau oral, dan pada kasus parah kuku bisa perlu dicabut untuk menghilangkan infeksi sepenuhnya. Onikomikosis atau tinea unguium dipandang lebih dari sekedar masalah kosmetik. Orang dengan kuku yang terinfeksi merasa tidak enak bahkan mungkin akan merasa malu. Infeksi jamur dari kuku dapat memicu infeksi bakteri sekunder, selulitis, reaksi idiopatik dan urtikaria kronis.",
+    "ringworm": "Ringworm adalah penyakit yang disebabkan oleh infeksi jamur golongan dermatofita (berbagai spesies Trichophyton, Microsporum dan Epidermophyton) pada badan, tungkai dan lengan dan mempunyai gambaran morfologi yang khas. Pasien merasa gatal dan kelainan umumnya berbentuk bulat, berbatas tegas, terdiri atas macam-macam efloresensi kulit (polimorf) dengan bagian tepi lesi lebih jelas tanda peradangannya daripada bagian tengah. Beberapa lesi dapat bergabung dan mem-bentuk gambaran polisiklis. Lesi dapat meluas dan memberi gambaran yang tidak khas terutama pada pasien imunodefisiensi."
+    
 }
 
 
