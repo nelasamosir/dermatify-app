@@ -23,7 +23,7 @@ if not os.path.exists(MODEL_PATH):
     gdown.download(URL, MODEL_PATH, quiet=False)
 
 # Load model
-model = load_model(MODEL_PATH)
+model = load_model(MODEL_PATH, compile=False)
 
 # ======== Label dan Deskripsi Penyakit ========
 labels = ['cellulitis', 'chickenpox', 'impetigo','nail fungus', 'ringworm']
