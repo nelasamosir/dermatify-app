@@ -6,24 +6,22 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
 import os
 import gdown
-
+from tensorflow import keras
 
 # ======== Konfigurasi halaman Streamlit ========
 st.set_page_config(layout="wide")
 
 # ======== Load model CNN ========
-MODEL_PATH = "best_model_skenario3_valacc.h5"
+MODEL_PATH = "best_model_skenario3_valacc.keras"
+FILE_ID = "1dZ9GV5JzHUV32psM3sZe4LCb_rVBVuKE"
 
-# File ID dari Google Drive
-FILE_ID = "15chWMLH-fMui8t6RdtRioJ5rFvtnX4ga"  # ganti dengan punyamu
 URL = f"https://drive.google.com/uc?id={FILE_ID}"
 
-# Download hanya kalau file belum ada
 if not os.path.exists(MODEL_PATH):
     gdown.download(URL, MODEL_PATH, quiet=False)
 
-# Load model
-model = load_model(MODEL_PATH)
+# Load model format baru
+model = keras.models.load_model(MODEL_PATH)
 
 # ======== Label dan Deskripsi Penyakit ========
 labels = ['cellulitis', 'chickenpox', 'impetigo','nail fungus', 'ringworm']
